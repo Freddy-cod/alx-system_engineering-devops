@@ -1,0 +1,2 @@
+#!/bin/bash
+echo $(('echo $PATH I grep -o ":/" I we-I'+ 1)) 
