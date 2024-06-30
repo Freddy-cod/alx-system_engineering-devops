@@ -1,6 +1,5 @@
 
-
-![Uploading 0-simple_web_stack_.PNG…]()
+![0-simple_web_stack_](https://github.com/Freddy-cod/alx-system_engineering-devops/assets/72683354/3de3777d-1587-4dcf-9a54-9c76321d3e94)
 
 # Infrastructure Overview
 
