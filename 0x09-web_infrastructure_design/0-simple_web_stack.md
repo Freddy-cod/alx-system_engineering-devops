@@ -1,3 +1,7 @@
+
+
+![Uploading 0-simple_web_stack_.PNG…]()
+
 # Infrastructure Overview
 
 This document outlines the basic web infrastructure for hosting a website accessible at www.foobar.com. The setup described here lacks firewalls and SSL certificates for network protection, and all components (database, application server) share the server's resources (CPU, RAM, and SSD).
