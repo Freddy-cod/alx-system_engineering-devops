@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 # Update package list and install Nginx
+<<<<<<< HEAD
 cat /etc/nginx/sites-available/default > /etc/nginx/sites-enabled/default
+=======
+apt-get update -y
+apt-get install -y nginx
+sudo service nginx enable
+>>>>>>> 08a793b44f26b0b7a6bbd4cc41c173e28302a0cb
 sudo service nginx restart
