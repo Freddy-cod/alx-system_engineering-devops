@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Installing new server to serve content
-apt-get -y update
-apt-get install -y nginx
-sudo service nginx start
+# Update package list and install Nginx
+cat /etc/nginx/sites-available/default > /etc/nginx/sites-enabled/default
+sudo service nginx restart
+rm /run/nginx.pid
