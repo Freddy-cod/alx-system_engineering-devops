@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Update package list and install Nginx
-sudo apt-get update -y
-sudo apt-get install nginx -y
+apt-get update -y
+apt-get install -y nginx
 sudo service nginx enable
 sudo service nginx start
