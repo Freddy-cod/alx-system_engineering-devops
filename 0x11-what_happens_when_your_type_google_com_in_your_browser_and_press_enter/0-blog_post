@@ -1,0 +1,51 @@
+**The Journey of a URL: From Browser to Google’s Servers and Back**
+
+When you type `https://www.google.com` into your browser and hit Enter, a series of intricate processes work together to retrieve and display the web page you're expecting. Understanding this sequence is crucial for any aspiring software engineer, as it touches on multiple components of the web stack. Let’s break down what happens step by step:
+
+### 1. **DNS Request**
+
+The first thing that happens is a Domain Name System (DNS) query. DNS is like the internet's phonebook, translating the human-readable domain name (`www.google.com`) into an IP address that computers can use to locate the server hosting the website.
+
+Your browser checks its cache to see if it has the IP address stored from a previous visit. If not, it sends a DNS request to a DNS server, which then finds the corresponding IP address and returns it to your browser.
+
+### 2. **TCP/IP Handshake**
+
+Once your browser has the IP address, it initiates a connection to the server using the Transmission Control Protocol (TCP). This process is known as a TCP handshake and involves three steps:
+
+- **SYN:** The browser sends a synchronization packet to the server.
+- **SYN-ACK:** The server responds with a synchronization-acknowledgment packet.
+- **ACK:** The browser sends an acknowledgment packet back to the server.
+
+This handshake establishes a reliable connection between your browser and the server.
+
+### 3. **Firewall Check**
+
+Before any data is exchanged, firewalls on both your local network and the server’s network inspect the incoming and outgoing packets to ensure they don’t pose any security threats. Firewalls help protect the network from malicious traffic, ensuring that only legitimate requests are allowed through.
+
+### 4. **HTTPS/SSL Encryption**
+
+Since the URL begins with `https://`, the connection is secured using HTTPS (Hypertext Transfer Protocol Secure). The browser and server engage in an SSL/TLS handshake, where they exchange encryption keys and establish a secure channel. This ensures that any data exchanged between your browser and the server is encrypted and protected from eavesdropping.
+
+### 5. **Load Balancer**
+
+For large-scale websites like Google, a load balancer is used to distribute incoming traffic across multiple servers. The load balancer ensures that no single server is overwhelmed with too many requests. It might route your request to the server with the least load or the server geographically closest to you to reduce latency.
+
+### 6. **Web Server**
+
+Once your request reaches the correct server, the web server takes over. The web server (e.g., Apache, Nginx) handles incoming HTTP requests, serving static content like HTML, CSS, and JavaScript files. If the requested page involves dynamic content, the web server passes the request to the application server.
+
+### 7. **Application Server**
+
+The application server processes the dynamic aspects of your request. It might involve running code (e.g., in Python, Java, or Node.js) to generate the necessary HTML based on your request. This could include user-specific content, queries to the database, or interactions with other services.
+
+### 8. **Database Query**
+
+If your request involves fetching data, the application server will query the database. The database stores all the information needed to generate the web page. For example, if you’re searching for something on Google, the application server queries the search index stored in the database to retrieve the relevant results.
+
+### 9. **Response Back to the Browser**
+
+Finally, the generated HTML, along with any static resources like images, CSS, and JavaScript, is sent back to your browser. The browser receives the data, begins rendering the page by parsing the HTML, constructing the DOM (Document Object Model), applying styles from CSS, and executing JavaScript.
+
+### Conclusion
+
+What seems like a simple action of pressing Enter triggers a complex, multi-step process that involves everything from DNS resolution to database queries. Each step is crucial in ensuring that you quickly receive the content you requested. By understanding this workflow, you not only gain insight into how the web works but also demonstrate a strong foundation in key concepts that are vital for software engineering roles.
