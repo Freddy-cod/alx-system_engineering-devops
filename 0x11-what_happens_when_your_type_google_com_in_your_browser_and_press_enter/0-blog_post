@@ -1,4 +1,4 @@
-## The Journey of a URL: From Browser to Google’s Servers and Back
+The Journey of a URL: From Browser to Google’s Servers and Back
 
 When you type https://www.google.com into your browser and hit Enter, a series of intricate processes work together to retrieve and display the web page you're expecting. Understanding this sequence is crucial for any aspiring software engineer, as it touches on multiple components of the web stack. Let’s break down what happens step by step:
 
