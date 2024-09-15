@@ -1,50 +1,57 @@
-### Postmortem: Outage on JobEase AI – Automated Job Application System
 
-### Issue Summary
-Duration: 6 hours, from 10:00 AM to 4:00 PM GMT on 14th September 2024.
-Impact: During this period, 70% of users were unable to submit job applications through the platform. Users experienced delays, error messages during submission, and overall sluggish performance of the service.
-Root Cause: A memory leak in the application server caused the system to crash intermittently and handle requests slowly. This was due to a misconfigured caching layer that caused excessive memory consumption.
+# Postmortem: JobEase AI Outage - “When Your Cache Decides to Go on Vacation”
 
-### Timeline
-10:00 AM – Issue detected by monitoring alert indicating high memory usage on the application server.
-10:05 AM – First investigation begins, assuming a spike in traffic caused the high resource usage.
-10:15 AM – Engineers scaled up additional servers to handle what was believed to be increased traffic.
-10:30 AM – Users reported continued issues with job submissions, indicating the issue was not resolved.
-11:00 AM – Escalation to the senior DevOps team as traffic scaling didn’t resolve the root cause.
-11:30 AM – Further investigations into the caching layer and database queries revealed slow response times from the server.
-12:00 PM – Misleading path: team assumed a database bottleneck and started optimizing queries.
-1:00 PM – Investigations revealed that the root cause was a memory leak in the cache configuration.
-1:30 PM – Engineers deployed a temporary fix to clear memory usage and restarted the server.
-2:00 PM – Full investigation into the cache revealed a missing parameter in the caching strategy.
-2:30 PM – Memory limits on the cache were adjusted and patches were applied.
-3:30 PM – Systems were tested and monitored to ensure stability.
-4:00 PM – The system was fully operational, and user traffic resumed to normal levels.
+![Outage Diagram](https://via.placeholder.com/600x300)  
+*Figure: A visual representation of the cascading cache meltdown.*
 
-### Root Cause and Resolution
-### Root Cause:
-The root cause of the outage was a memory leak due to improper cache configuration. The cache, which was intended to speed up the retrieval of job listings, did not have a memory limit set. As job applications increased, the cache consumed excessive memory, leading to system slowdowns and eventual crashes.
+---
 
-### Resolution:
-After identifying that the caching layer was causing the memory leak, the immediate step taken was to clear out the cache and restart the application server. The DevOps team then applied a configuration patch to set memory limits on the cache and configured the cache to expire stale data more efficiently. This resolved the memory consumption issue, allowing the application server to handle requests normally.
+## Issue Summary
 
-### Corrective and Preventative Measures
-### Improvements:
+**Duration**: 6 hours, from 10:00 AM to 4:00 PM GMT on 14th September 2024.  
+**Impact**: During the outage, 70% of our users were stuck watching the “Please Wait” spinner for longer than anyone should have to. Job applications couldn’t be submitted, and users started experiencing error messages at random. Only 30% of users were spared from this nightmare.  
+**Root Cause**: A memory leak in the caching system. In simple terms: the cache got lazy and ate up all the memory, leaving the application starved.
 
-Implement better monitoring for memory usage in the cache and server to detect spikes early.
-Review and optimize the caching strategy to ensure it scales efficiently with increasing traffic.
-Improve the alert system to catch configuration issues before they impact service performance.
-Tasks:
+---
 
-Patch Cache System: Ensure proper memory limits and expiration policies are applied to the cache configuration.
-Add Memory Monitoring: Implement specific memory monitoring tools that trigger alerts before resources are exhausted.
-Stress Testing: Regularly stress-test the system to ensure it can handle increased traffic without degrading performance.
-Update Documentation: Ensure the cache configuration and system architecture are thoroughly documented to avoid similar issues in the future.
-Database Query Optimization: Revisit database query strategies to ensure they don’t become bottlenecks during high traffic periods.
-Auto-scaling Adjustment: Adjust auto-scaling strategies to trigger only when genuine traffic spikes occur, rather than as a response to internal system issues like memory leaks.
-This postmortem aims to provide an understanding of the outage, root cause, and steps to prevent a recurrence. Through improved monitoring, patching, and configuration practices, we will ensure better system resilience in the future.
+## Timeline  
+- **10:00 AM** – Monitoring alerts start screaming about high memory usage on our server.
+- **10:05 AM** – First responders assume the site is being stormed by a surge of eager job seekers.
+- **10:15 AM** – More servers are added to keep up with the “load” (Spoiler: it wasn’t the load).
+- **10:30 AM** – User complaints roll in about submissions going missing like socks in a washing machine.
+- **11:00 AM** – The senior DevOps team is summoned (think bat signal in the sky).
+- **11:30 AM** – They begin investigating slow database queries—spoiler again: not the real issue.
+- **12:00 PM** – The wild goose chase continues, focusing on database optimisation.
+- **1:00 PM** – Finally, the cache’s memory leak is identified as the main suspect.  
+- **1:30 PM** – Cache cleared, server restarted. There was a brief sigh of relief.
+- **2:00 PM** – The missing memory limits on the cache configuration were discovered.  
+- **2:30 PM** – Cache patched, and limits set.
+- **4:00 PM** – All systems go, and normal service resumes.
 
+---
 
+## Root Cause and Resolution  
+### Root Cause  
+The cache, usually the team player speeding things up, went rogue. It wasn’t set up with a memory limit, so it grew and grew, eventually consuming all the system resources. JobEase’s app servers couldn’t keep up and started failing to handle job applications.
 
+### Resolution  
+Once the rogue cache was identified, it was swiftly cleared, and limits were set on its memory consumption. This kept it from hogging all the resources, ensuring it could do its job without taking down the whole application. Proper cache expiration settings were also applied to avoid overgrowth in the future.
 
+---
 
+## Corrective and Preventative Measures  
+### Improvements  
+- Set up **better monitoring** for cache and memory usage. We don't want the cache getting lazy again.
+- Regular stress tests to **simulate high traffic** and make sure everything behaves (no more excuses for downtime).
 
+### TODO List  
+1. **Patch Cache Configuration**: Implement proper memory limits.
+2. **Add Memory Alerts**: So we know if something’s getting greedy.
+3. **Stress Testing**: Ensure the app doesn’t collapse when things get tough.
+4. **Update Documentation**: Make sure the next person knows what happened and how to avoid it.
+
+---
+
+Let’s keep our cache in check, so next time it doesn’t go on an unscheduled vacation! 🏖️
+
+---
