@@ -1,10 +1,11 @@
-Postmortem: Outage on JobEase AI – Automated Job Application System
-Issue Summary
+### Postmortem: Outage on JobEase AI – Automated Job Application System
+
+### Issue Summary
 Duration: 6 hours, from 10:00 AM to 4:00 PM GMT on 14th September 2024.
 Impact: During this period, 70% of users were unable to submit job applications through the platform. Users experienced delays, error messages during submission, and overall sluggish performance of the service.
 Root Cause: A memory leak in the application server caused the system to crash intermittently and handle requests slowly. This was due to a misconfigured caching layer that caused excessive memory consumption.
 
-Timeline
+### Timeline
 10:00 AM – Issue detected by monitoring alert indicating high memory usage on the application server.
 10:05 AM – First investigation begins, assuming a spike in traffic caused the high resource usage.
 10:15 AM – Engineers scaled up additional servers to handle what was believed to be increased traffic.
@@ -18,15 +19,16 @@ Timeline
 2:30 PM – Memory limits on the cache were adjusted and patches were applied.
 3:30 PM – Systems were tested and monitored to ensure stability.
 4:00 PM – The system was fully operational, and user traffic resumed to normal levels.
-Root Cause and Resolution
-Root Cause:
+
+### Root Cause and Resolution
+### Root Cause:
 The root cause of the outage was a memory leak due to improper cache configuration. The cache, which was intended to speed up the retrieval of job listings, did not have a memory limit set. As job applications increased, the cache consumed excessive memory, leading to system slowdowns and eventual crashes.
 
-Resolution:
+### Resolution:
 After identifying that the caching layer was causing the memory leak, the immediate step taken was to clear out the cache and restart the application server. The DevOps team then applied a configuration patch to set memory limits on the cache and configured the cache to expire stale data more efficiently. This resolved the memory consumption issue, allowing the application server to handle requests normally.
 
-Corrective and Preventative Measures
-Improvements:
+### Corrective and Preventative Measures
+### Improvements:
 
 Implement better monitoring for memory usage in the cache and server to detect spikes early.
 Review and optimize the caching strategy to ensure it scales efficiently with increasing traffic.
